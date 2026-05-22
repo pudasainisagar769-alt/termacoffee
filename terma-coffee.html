@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Terma Coffee — Single Origin. Pure Craft.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0d0b08;
+      --bg2: #141108;
+      --card: #181410;
+      --cream: #f5f0e8;
+      --gold: #c8a96e;
+      --gold2: #a07840;
+      --text: #e8e2d8;
+      --muted: #7a7168;
+      --border: #2a2420;
+      --border2: #3a3028;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* GRAIN OVERLAY */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      border-bottom: 1px solid rgba(200,169,110,0.1);
+      background: rgba(13,11,8,0.9);
+      backdrop-filter: blur(20px);
+      transition: padding 0.3s;
+    }
+
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .nav-logo .brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 1.6rem;
+      letter-spacing: 0.12em;
+      color: var(--cream);
+      text-transform: uppercase;
+    }
+
+    .nav-logo .tagline {
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 3rem;
+    }
+
+    nav ul a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    nav ul a:hover { color: var(--cream); }
+
+    .nav-cta {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold) !important;
+      padding: 0.5rem 1.4rem;
+      border-radius: 2px;
+      cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.7rem !important;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: all 0.3s !important;
+      text-decoration: none;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold) !important;
+      color: var(--bg) !important;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 5% 5rem;
+      position: relative;
+      overflow: hidden;
+      gap: 4rem;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 70% at 80% 50%, rgba(200,169,110,0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-left { position: relative; z-index: 1; }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .eyebrow-line { width: 40px; height: 1px; background: var(--gold); }
+
+    .eyebrow span {
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(3.5rem, 6vw, 5.5rem);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.9;
+      max-width: 400px;
+      margin-bottom: 3rem;
+      animation: fadeUp 0.8s 0.2s ease both;
+      letter-spacing: 0.03em;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--bg);
+      border: none;
+      padding: 1rem 2.5rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 2px;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+
+    .btn-primary:hover {
+      background: var(--cream);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: none;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: color 0.3s;
+    }
+
+    .btn-ghost:hover { color: var(--cream); }
+
+    .btn-ghost::after {
+      content: '→';
+      transition: transform 0.3s;
+    }
+
+    .btn-ghost:hover::after { transform: translateX(4px); }
+
+    /* HERO RIGHT — visual */
+    .hero-right {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: flex-end;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+
+    .hero-visual {
+      position: relative;
+      width: 420px;
+      height: 520px;
+    }
+
+    .hero-frame {
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(200,169,110,0.2);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .hero-frame-inner {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(160deg, #1a140c 0%, #0d0b08 50%, #1e160c 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* SVG coffee art in hero */
+    .coffee-svg {
+      width: 260px;
+      height: 260px;
+      opacity: 0.85;
+    }
+
+    .hero-badge {
+      position: absolute;
+      bottom: -20px;
+      left: -30px;
+      background: var(--gold);
+      color: var(--bg);
+      padding: 1.5rem;
+      border-radius: 2px;
+      text-align: center;
+      min-width: 120px;
+    }
+
+    .hero-badge .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      line-height: 1;
+      display: block;
+    }
+
+    .hero-badge .label {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-top: 4px;
+      display: block;
+    }
+
+    .corner-accent {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      width: 48px;
+      height: 48px;
+      border-top: 2px solid var(--gold);
+      border-right: 2px solid var(--gold);
+    }
+
+    /* ─── STRIP ─── */
+    .strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 5%;
+      display: flex;
+      gap: 0;
+      overflow: hidden;
+    }
+
+    .strip-item {
+      flex: 1;
+      text-align: center;
+      padding: 0 2rem;
+      border-right: 1px solid var(--border);
+    }
+
+    .strip-item:last-child { border-right: none; }
+
+    .strip-item .s-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .strip-item .s-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--cream);
+    }
+
+    /* ─── SECTION BASE ─── */
+    section {
+      padding: 8rem 5%;
+      position: relative;
+    }
+
+    .section-header {
+      margin-bottom: 5rem;
+    }
+
+    .section-header .eyebrow {
+      animation: none;
+    }
+
+    .section-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.5rem, 4vw, 3.8rem);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      max-width: 600px;
+    }
+
+    .section-header h2 em { font-style: italic; color: var(--gold); }
+
+    /* ─── PRODUCTS ─── */
+    #products { background: var(--bg); }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .product-card {
+      background: var(--bg);
+      padding: 3rem 2.5rem;
+      cursor: pointer;
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+      transform-origin: left;
+    }
+
+    .product-card:hover::before { transform: scaleX(1); }
+    .product-card:hover { background: var(--card); }
+
+    .product-category {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2rem;
+    }
+
+    /* Product icon art */
+    .product-art {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 2rem;
+    }
+
+    .product-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+      color: var(--cream);
+    }
+
+    .product-card .origin {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+    }
+
+    .product-card .desc {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .price-block .price-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .price-block .price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 400;
+      color: var(--cream);
+      line-height: 1;
+    }
+
+    .price-block .per {
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    .add-btn {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border2);
+      background: transparent;
+      color: var(--muted);
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      line-height: 1;
+    }
+
+    .add-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(200,169,110,0.05);
+    }
+
+    /* Featured product */
+    .product-card.featured {
+      background: var(--card);
+      border: 1px solid rgba(200,169,110,0.2);
+      grid-row: span 1;
+    }
+
+    .featured-badge {
+      position: absolute;
+      top: 2.5rem;
+      right: 2.5rem;
+      font-size: 0.58rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(200,169,110,0.4);
+      padding: 0.4rem 0.8rem;
+    }
+
+    /* ─── PROCESS ─── */
+    #process {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .process-step {
+      padding: 3rem 2.5rem;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+
+    .process-step:last-child { border-right: none; }
+
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem;
+      font-weight: 300;
+      color: rgba(200,169,110,0.12);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .step-icon {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 1.5rem;
+    }
+
+    .process-step h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 0.8rem;
+    }
+
+    .process-step p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* ─── FOUNDER ─── */
+    #founder {
+      background: var(--bg);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8rem;
+      align-items: center;
+      padding: 8rem 5%;
+    }
+
+    .founder-visual {
+      position: relative;
+    }
+
+    .founder-frame {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .founder-frame::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(200,169,110,0.05) 0%, transparent 50%);
+    }
+
+    .founder-monogram {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 8rem;
+      font-weight: 300;
+      color: rgba(200,169,110,0.15);
+      letter-spacing: -0.05em;
+      user-select: none;
+    }
+
+    .founder-name-tag {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2rem;
+      background: linear-gradient(0deg, rgba(13,11,8,0.95) 0%, transparent 100%);
+    }
+
+    .founder-name-tag .fn {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--cream);
+      display: block;
+    }
+
+    .founder-name-tag .ft {
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 4px;
+      display: block;
+    }
+
+    .founder-content .eyebrow { animation: none; }
+
+    .founder-content h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.15;
+      margin-bottom: 2rem;
+    }
+
+    .founder-content h2 em { font-style: italic; color: var(--gold); }
+
+    .founder-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--muted);
+      line-height: 1.7;
+      border-left: 2px solid var(--gold);
+      padding-left: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .founder-content p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 1.2rem;
+    }
+
+    /* ─── TESTIMONIALS ─── */
+    #reviews {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 4rem;
+    }
+
+    .review-card {
+      background: var(--bg2);
+      padding: 3rem 2.5rem;
+    }
+
+    .stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 1.5rem;
+    }
+
+    .star {
+      color: var(--gold);
+      font-size: 0.8rem;
+    }
+
+    .review-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--cream);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .reviewer {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .reviewer-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(200,169,110,0.15);
+      border: 1px solid rgba(200,169,110,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      color: var(--gold);
+    }
+
+    .reviewer-name {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--cream);
+      letter-spacing: 0.05em;
+    }
+
+    .reviewer-loc {
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── CTA BANNER ─── */
+    .cta-banner {
+      padding: 8rem 5%;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .cta-banner h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.5rem, 4.5vw, 4rem);
+      line-height: 1.1;
+    }
+
+    .cta-banner h2 em { font-style: italic; color: var(--gold); }
+
+    .cta-actions { display: flex; gap: 1.2rem; align-items: center; flex-shrink: 0; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 4rem 5%;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 4rem;
+    }
+
+    .footer-brand .fb-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 1.5rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cream);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .footer-brand .fb-tag {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 260px;
+    }
+
+    .footer-col h5 {
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-col ul { list-style: none; }
+
+    .footer-col ul li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-col ul a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul a:hover { color: var(--cream); }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .footer-bottom .gold { color: var(--gold); }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── HAMBURGER ─── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--cream);
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      background: rgba(13,11,8,0.98);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 499;
+      padding: 2rem 5%;
+      flex-direction: column;
+      gap: 0;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--cream); }
+    .mobile-menu .mob-cta {
+      margin-top: 1.5rem;
+      background: var(--gold);
+      color: var(--bg);
+      text-align: center;
+      padding: 1rem;
+      border-radius: 2px;
+      font-weight: 500;
+      border-bottom: none;
+    }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 1.1rem 5%; }
+      nav ul { display: none; }
+      .hamburger { display: flex; }
+
+      .hero { grid-template-columns: 1fr; padding: 7rem 5% 4rem; gap: 2rem; }
+      .hero-right { display: none; }
+      .hero h1 { font-size: clamp(2.8rem, 10vw, 4rem); }
+      .hero-sub { font-size: 0.85rem; }
+      .btn-row, .hero-actions { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+
+      .strip { flex-direction: column; padding: 2rem 5%; }
+      .strip-item { border-right: none; border-bottom: 1px solid var(--border); padding: 1rem 0; text-align: left; }
+      .strip-item:last-child { border-bottom: none; }
+
+      section { padding: 5rem 5%; }
+      .section-header { margin-bottom: 3rem; }
+      .section-header h2 { font-size: clamp(2rem, 8vw, 2.8rem); }
+
+      .products-grid { grid-template-columns: 1fr; }
+      .product-card { padding: 2rem 1.5rem; }
+
+      .process-grid { grid-template-columns: 1fr; }
+      .process-step { border-right: none; border-bottom: 1px solid var(--border); padding: 2.5rem 0; }
+      .process-step:last-child { border-bottom: none; }
+
+      #founder > div { grid-template-columns: 1fr !important; padding: 5rem 5% !important; gap: 3rem !important; }
+      .founder-frame { aspect-ratio: 4/3; }
+      .founder-monogram { font-size: 5rem; }
+      .founder-content h2 { font-size: clamp(1.8rem, 7vw, 2.5rem); }
+
+      .reviews-grid { grid-template-columns: 1fr; }
+
+      .cta-banner { grid-template-columns: 1fr; padding: 5rem 5%; gap: 2.5rem; }
+      .cta-banner h2 { font-size: clamp(2rem, 8vw, 3rem); }
+      .cta-actions { flex-direction: column; align-items: flex-start; }
+
+      footer { grid-template-columns: 1fr 1fr; gap: 2.5rem; padding: 4rem 5%; }
+      .footer-brand { grid-column: 1 / -1; }
+
+      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem 5%; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2.6rem; }
+      footer { grid-template-columns: 1fr; }
+      .products-grid { gap: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ─── -->
+  <nav>
+    <div class="nav-logo">
+      <span class="brand">Terma Coffee</span>
+      <span class="tagline">Single Origin. Pure Craft.</span>
+    </div>
+    <ul>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#process">Our Process</a></li>
+      <li><a href="#founder">Our Story</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#products" class="nav-cta">Shop Now</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#products" onclick="closeMob()">Products</a>
+    <a href="#process" onclick="closeMob()">Our Process</a>
+    <a href="#founder" onclick="closeMob()">Our Story</a>
+    <a href="#reviews" onclick="closeMob()">Reviews</a>
+    <a href="#products" class="mob-cta" onclick="closeMob()">Shop Now</a>
+  </div>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-left">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span>Terma Coffee — Est. 2023</span>
+      </div>
+      <h1>Coffee at its<br/><em>finest form.</em></h1>
+      <p class="hero-sub">
+        From high-altitude farms to your cup — we source, roast, and deliver 
+        exceptional single-origin coffees and artisan blends with uncompromising care.
+      </p>
+      <div class="hero-actions">
+        <a href="#products" class="btn-primary">Shop Collection</a>
+        <a href="#founder" class="btn-ghost">Our Story</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-visual">
+        <div class="hero-frame">
+          <div class="hero-frame-inner">
+            <!-- Elegant coffee cup SVG art -->
+            <svg class="coffee-svg" viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Steam -->
+              <path d="M100 60 Q105 48 100 36" stroke="rgba(200,169,110,0.3)" stroke-width="1.5" stroke-linecap="round" fill="none">
+                <animate attributeName="opacity" values="0;1;0" dur="2.5s" repeatCount="indefinite"/>
+              </path>
+              <path d="M130 52 Q135 38 130 24" stroke="rgba(200,169,110,0.3)" stroke-width="1.5" stroke-linecap="round" fill="none">
+                <animate attributeName="opacity" values="0;1;0" dur="2.5s" begin="0.5s" repeatCount="indefinite"/>
+              </path>
+              <path d="M160 60 Q165 48 160 36" stroke="rgba(200,169,110,0.3)" stroke-width="1.5" stroke-linecap="round" fill="none">
+                <animate attributeName="opacity" values="0;1;0" dur="2.5s" begin="1s" repeatCount="indefinite"/>
+              </path>
+              <!-- Cup body -->
+              <path d="M72 90 L80 180 Q80 192 92 192 L168 192 Q180 192 180 180 L188 90 Z" fill="rgba(30,22,14,0.9)" stroke="rgba(200,169,110,0.4)" stroke-width="1"/>
+              <!-- Coffee surface -->
+              <ellipse cx="130" cy="90" rx="58" ry="10" fill="rgba(120,80,40,0.8)" stroke="rgba(200,169,110,0.3)" stroke-width="1"/>
+              <!-- Latte art -->
+              <ellipse cx="130" cy="90" rx="30" ry="5" fill="rgba(200,150,90,0.25)"/>
+              <path d="M115 88 Q130 82 145 88 Q130 94 115 88Z" fill="rgba(240,200,140,0.15)"/>
+              <!-- Saucer -->
+              <ellipse cx="130" cy="198" rx="74" ry="10" fill="rgba(30,22,14,0.7)" stroke="rgba(200,169,110,0.35)" stroke-width="1"/>
+              <ellipse cx="130" cy="197" rx="64" ry="7" fill="none" stroke="rgba(200,169,110,0.15)" stroke-width="0.5"/>
+              <!-- Handle -->
+              <path d="M188 120 Q220 120 220 150 Q220 178 188 175" stroke="rgba(200,169,110,0.5)" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <!-- Brand text -->
+              <text x="130" y="145" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="11" fill="rgba(200,169,110,0.4)" letter-spacing="3">TERMA</text>
+              <!-- Corner decorations -->
+              <rect x="30" y="30" width="20" height="20" fill="none" stroke="rgba(200,169,110,0.15)" stroke-width="0.5"/>
+              <rect x="210" y="210" width="20" height="20" fill="none" stroke="rgba(200,169,110,0.15)" stroke-width="0.5"/>
+              <!-- Beans decoration -->
+              <ellipse cx="50" cy="180" rx="6" ry="9" fill="rgba(120,70,30,0.4)" transform="rotate(-30 50 180)"/>
+              <line x1="47" y1="172" x2="53" y2="188" stroke="rgba(90,50,20,0.5)" stroke-width="0.7"/>
+              <ellipse cx="210" cy="90" rx="6" ry="9" fill="rgba(120,70,30,0.4)" transform="rotate(20 210 90)"/>
+              <line x1="207" y1="82" x2="213" y2="98" stroke="rgba(90,50,20,0.5)" stroke-width="0.7"/>
+            </svg>
+          </div>
+        </div>
+        <div class="hero-badge">
+          <span class="num">8+</span>
+          <span class="label">Origins</span>
+        </div>
+        <div class="corner-accent"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── STRIP ─── -->
+  <div class="strip">
+    <div class="strip-item">
+      <div class="s-label">Sourced from</div>
+      <div class="s-val">Ethiopia · Colombia · Nepal</div>
+    </div>
+    <div class="strip-item">
+      <div class="s-label">Roast Profile</div>
+      <div class="s-val">Light · Medium · Dark</div>
+    </div>
+    <div class="strip-item">
+      <div class="s-label">Free Shipping</div>
+      <div class="s-val">Orders above NPR 2,000</div>
+    </div>
+    <div class="strip-item">
+      <div class="s-label">Freshness</div>
+      <div class="s-val">Roasted to Order</div>
+    </div>
+  </div>
+
+  <!-- ─── PRODUCTS ─── -->
+  <section id="products">
+    <div class="section-header reveal">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span>The Collection</span>
+      </div>
+      <h2>Crafted for the<br/><em>discerning cup.</em></h2>
+    </div>
+
+    <div class="products-grid">
+
+      <!-- Product 1 -->
+      <div class="product-card reveal">
+        <div class="product-category">Whole Bean</div>
+        <svg class="product-art" viewBox="0 0 80 80" fill="none">
+          <ellipse cx="40" cy="40" rx="18" ry="26" fill="rgba(120,70,30,0.3)" stroke="rgba(200,169,110,0.5)" stroke-width="1" transform="rotate(-20 40 40)"/>
+          <line x1="32" y1="24" x2="48" y2="56" stroke="rgba(200,169,110,0.4)" stroke-width="0.8" transform="rotate(-20 40 40)"/>
+          <ellipse cx="56" cy="35" rx="12" ry="18" fill="rgba(100,55,20,0.3)" stroke="rgba(200,169,110,0.35)" stroke-width="0.8" transform="rotate(15 56 35)"/>
+          <line x1="50" y1="21" x2="62" y2="49" stroke="rgba(200,169,110,0.3)" stroke-width="0.7" transform="rotate(15 56 35)"/>
+        </svg>
+        <h3>Ethiopian Yirgacheffe</h3>
+        <div class="origin">Ethiopia · Light Roast · Washed</div>
+        <p class="desc">Bright and floral with notes of jasmine, bergamot, and a lemon citrus finish. A classic of the craft.</p>
+        <div class="product-footer">
+          <div class="price-block">
+            <div class="price-label">Price</div>
+            <div class="price">NPR 1,450</div>
+            <div class="per">per 250g</div>
+          </div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+
+      <!-- Product 2 — Featured -->
+      <div class="product-card featured reveal">
+        <div class="featured-badge">Best Seller</div>
+        <div class="product-category">Whole Bean</div>
+        <svg class="product-art" viewBox="0 0 80 80" fill="none">
+          <circle cx="40" cy="40" r="22" fill="rgba(80,45,15,0.3)" stroke="rgba(200,169,110,0.4)" stroke-width="1"/>
+          <circle cx="40" cy="40" r="14" fill="rgba(100,60,20,0.2)" stroke="rgba(200,169,110,0.25)" stroke-width="0.7"/>
+          <circle cx="40" cy="40" r="6" fill="rgba(200,169,110,0.15)" stroke="rgba(200,169,110,0.5)" stroke-width="0.7"/>
+          <line x1="40" y1="18" x2="40" y2="62" stroke="rgba(200,169,110,0.2)" stroke-width="0.5"/>
+          <line x1="18" y1="40" x2="62" y2="40" stroke="rgba(200,169,110,0.2)" stroke-width="0.5"/>
+        </svg>
+        <h3>Colombian Huila</h3>
+        <div class="origin">Colombia · Medium Roast · Natural</div>
+        <p class="desc">Rich chocolate and caramel sweetness balanced with red fruit acidity. Smooth, full-bodied, and deeply satisfying.</p>
+        <div class="product-footer">
+          <div class="price-block">
+            <div class="price-label">Price</div>
+            <div class="price">NPR 1,650</div>
+            <div class="per">per 250g</div>
+          </div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-card reveal">
+        <div class="product-category">Whole Bean</div>
+        <svg class="product-art" viewBox="0 0 80 80" fill="none">
+          <path d="M20 55 L40 20 L60 55 Z" fill="rgba(80,40,10,0.3)" stroke="rgba(200,169,110,0.4)" stroke-width="1" stroke-linejoin="round"/>
+          <path d="M28 55 L40 33 L52 55 Z" fill="rgba(200,169,110,0.08)" stroke="rgba(200,169,110,0.2)" stroke-width="0.6" stroke-linejoin="round"/>
+        </svg>
+        <h3>Nepalese Highland</h3>
+        <div class="origin">Nepal · Medium-Dark · Honey</div>
+        <p class="desc">A rare Himalayan origin. Earthy and complex with hints of dark fruit, cedar, and a lingering sweetness.</p>
+        <div class="product-footer">
+          <div class="price-block">
+            <div class="price-label">Price</div>
+            <div class="price">NPR 1,800</div>
+            <div class="per">per 250g</div>
+          </div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="product-card reveal">
+        <div class="product-category">Ground Powder</div>
+        <svg class="product-art" viewBox="0 0 80 80" fill="none">
+          <rect x="22" y="30" width="36" height="28" rx="3" fill="rgba(80,45,15,0.3)" stroke="rgba(200,169,110,0.4)" stroke-width="1"/>
+          <rect x="30" y="22" width="20" height="10" rx="2" fill="rgba(100,60,20,0.4)" stroke="rgba(200,169,110,0.35)" stroke-width="0.8"/>
+          <line x1="28" y1="40" x2="52" y2="40" stroke="rgba(200,169,110,0.2)" stroke-width="0.5"/>
+          <line x1="28" y1="46" x2="52" y2="46" stroke="rgba(200,169,110,0.2)" stroke-width="0.5"/>
+          <line x1="28" y1="52" x2="52" y2="52" stroke="rgba(200,169,110,0.2)" stroke-width="0.5"/>
+        </svg>
+        <h3>Morning Blend Powder</h3>
+        <div class="origin">Multi-Origin · Medium · Fine Grind</div>
+        <p class="desc">Precision-ground for drip, French press, or Moka pot. Consistent, vibrant, and ready to brew.</p>
+        <div class="product-footer">
+          <div class="price-block">
+            <div class="price-label">Price</div>
+            <div class="price">NPR 1,100</div>
+            <div class="per">per 250g</div>
+          </div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+
+      <!-- Product 5 -->
+      <div class="product-card reveal">
+        <div class="product-category">Ground Powder</div>
+        <svg class="product-art" viewBox="0 0 80 80" fill="none">
+          <ellipse cx="40" cy="50" rx="22" ry="10" fill="rgba(80,45,15,0.25)" stroke="rgba(200,169,110,0.3)" stroke-width="0.8"/>
+          <rect x="28" y="28" width="24" height="22" rx="2" fill="rgba(80,45,15,0.35)" stroke="rgba(200,169,110,0.4)" stroke-width="1"/>
+          <path d="M34 28 L34 22 L46 22 L46 28" stroke="rgba(200,169,110,0.4)" stroke-width="1" fill="none" stroke-linecap="round"/>
+        </svg>
+        <h3>Espresso Dark Powder</h3>
+        <div class="origin">Brazil·Ethiopia · Dark · Ultra-Fine</div>
+        <p class="desc">Bold, intense, and unforgiving. Engineered for espresso machines demanding the very best from every shot.</p>
+        <div class="product-footer">
+          <div class="price-block">
+            <div class="price-label">Price</div>
+            <div class="price">NPR 1,350</div>
+            <div class="per">per 250g</div>
+          </div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+
+      <!-- Product 6 -->
+      <div class="product-card reveal">
+        <div class="product-category">Coffee Beans</div>
+        <svg class="product-art" viewBox="0 0 80 80" fill="none">
+          <ellipse cx="30" cy="45" rx="10" ry="15" fill="rgba(100,55,20,0.35)" stroke="rgba(200,169,110,0.4)" stroke-width="1" transform="rotate(-15 30 45)"/>
+          <line x1="24" y1="32" x2="36" y2="58" stroke="rgba(200,169,110,0.35)" stroke-width="0.8" transform="rotate(-15 30 45)"/>
+          <ellipse cx="50" cy="38" rx="10" ry="15" fill="rgba(80,40,10,0.35)" stroke="rgba(200,169,110,0.35)" stroke-width="1" transform="rotate(10 50 38)"/>
+          <line x1="44" y1="25" x2="56" y2="51" stroke="rgba(200,169,110,0.3)" stroke-width="0.8" transform="rotate(10 50 38)"/>
+          <ellipse cx="40" cy="55" rx="8" ry="12" fill="rgba(90,50,15,0.3)" stroke="rgba(200,169,110,0.3)" stroke-width="0.8" transform="rotate(5 40 55)"/>
+        </svg>
+        <h3>Terma Signature Blend</h3>
+        <div class="origin">3-Origin · Medium · Whole Bean</div>
+        <p class="desc">Our house blend — a carefully calibrated harmony of three origins creating our most balanced and beloved cup.</p>
+        <div class="product-footer">
+          <div class="price-block">
+            <div class="price-label">Price</div>
+            <div class="price">NPR 1,550</div>
+            <div class="per">per 250g</div>
+          </div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── PROCESS ─── -->
+  <section id="process">
+    <div class="section-header reveal">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span>How We Work</span>
+      </div>
+      <h2>From seed to<br/><em>your cup.</em></h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-step reveal">
+        <div class="step-num">01</div>
+        <h4>Direct Sourcing</h4>
+        <p>We build direct relationships with small-lot farmers across Ethiopia, Colombia, and the Himalayas — ensuring fair pricing and traceable origins.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">02</div>
+        <h4>Sample Roasting</h4>
+        <p>Every new lot is sample-roasted and cupped by our team before a single bag is ordered. Only the highest scoring lots make the cut.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">03</div>
+        <h4>Precision Roasting</h4>
+        <p>We roast in small batches on a drum roaster, dialing each origin to its ideal profile — preserving what makes each coffee unique.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">04</div>
+        <h4>Freshness Delivered</h4>
+        <p>Orders are roasted within 48 hours of dispatch and shipped in nitrogen-flushed, valve-sealed bags to lock in peak freshness.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOUNDER ─── -->
+  <section id="founder" style="padding:0">
+    <div style="display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:8rem;padding:8rem 5%">
+      <div class="founder-visual reveal">
+        <div class="founder-frame">
+          <div class="founder-monogram">SG</div>
+          <div class="founder-name-tag">
+            <span class="fn">Sagar</span>
+            <span class="ft">Founder &amp; Head Roaster — Terma Coffee</span>
+          </div>
+        </div>
+      </div>
+      <div class="founder-content reveal">
+        <div class="eyebrow">
+          <div class="eyebrow-line"></div>
+          <span>The Founder</span>
+        </div>
+        <h2>Built on a<br/><em>love for the craft.</em></h2>
+        <blockquote class="founder-quote">
+          "I started Terma because I believed Nepal deserved access to world-class coffee — and that the world deserved to taste what grows in our own mountains."
+        </blockquote>
+        <p>Terma Coffee was born from a single conviction: that exceptional coffee should be honest, traceable, and beautiful in its simplicity. No shortcuts. No compromises.</p>
+        <p>From sourcing trips to high-altitude farms to evenings behind the roaster, every bean that leaves our facility has been personally approved — because quality is not a claim, it's a practice.</p>
+        <a href="#products" class="btn-primary" style="margin-top:1rem;display:inline-block">Explore the Collection</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── REVIEWS ─── -->
+  <section id="reviews" style="padding-bottom:6rem">
+    <div class="section-header reveal" style="margin-bottom:0">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span>Reviews</span>
+      </div>
+      <h2>What our customers<br/><em>are saying.</em></h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"The Ethiopian Yirgacheffe changed how I think about coffee. Floral, bright, and unlike anything I'd had before. Terma has a customer for life."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">AR</div>
+          <div>
+            <div class="reviewer-name">Anish Rana</div>
+            <div class="reviewer-loc">Kathmandu, Nepal</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"I've ordered from specialty roasters around the world. Terma's Colombian Huila sits right up there. The balance is extraordinary — chocolate and fruit in perfect tension."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">PM</div>
+          <div>
+            <div class="reviewer-name">Priya Manandhar</div>
+            <div class="reviewer-loc">Lalitpur, Nepal</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Fast shipping, beautiful packaging, and the Nepalese Highland is something truly special. Proud that this quality exists right here in Nepal."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">SK</div>
+          <div>
+            <div class="reviewer-name">Suraj KC</div>
+            <div class="reviewer-loc">Pokhara, Nepal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ─── -->
+  <div class="cta-banner">
+    <h2>Ready to experience<br/><em>exceptional coffee?</em></h2>
+    <div class="cta-actions">
+      <a href="#products" class="btn-primary">Shop Now</a>
+      <a href="#founder" class="btn-ghost">Our Story</a>
+    </div>
+  </div>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="footer-brand">
+      <span class="fb-logo">Terma Coffee</span>
+      <span class="fb-tag">Single Origin. Pure Craft.</span>
+      <p>Sourcing and roasting exceptional coffee from around the world — delivered fresh to your door from Kathmandu.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Shop</h5>
+      <ul>
+        <li><a href="#">Whole Beans</a></li>
+        <li><a href="#">Ground Powder</a></li>
+        <li><a href="#">Signature Blend</a></li>
+        <li><a href="#">Gift Sets</a></li>
+        <li><a href="#">Subscriptions</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="#">Our Story</a></li>
+        <li><a href="#">Sourcing</a></li>
+        <li><a href="#">Roasting</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Support</h5>
+      <ul>
+        <li><a href="#">Shipping Info</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <div class="footer-bottom">
+    <p>© 2025 Terma Coffee. All rights reserved. Founded by <span class="gold">Sagar.</span></p>
+    <p>Kathmandu, Nepal · <span class="gold">info@termacoffee.com</span></p>
+  </div>
+
+  <script>
+    // Intersection observer for reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Smooth nav shrink
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 80) {
+        nav.style.padding = '0.9rem 5%';
+      } else {
+        nav.style.padding = '1.5rem 5%';
+      }
+    });
+
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    function closeMob() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    }
+
+    // Add to cart micro-interaction
+    document.querySelectorAll('.add-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const orig = this.textContent;
+        this.textContent = '✓';
+        this.style.borderColor = 'var(--gold)';
+        this.style.color = 'var(--gold)';
+        setTimeout(() => {
+          this.textContent = orig;
+          this.style.borderColor = '';
+          this.style.color = '';
+        }, 1200);
+      });
+    });
+  </script>
+
+</body>
+</html>
